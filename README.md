@@ -49,7 +49,16 @@ the university and are not tracked in this repository.
 | Point accuracy | 25.81% MAPE, versus 41.33% for a suburb-median baseline — 37.5% better |
 | Interval | nominal 80%, **measured 77.6%** — the measured figure is what the app displays |
 | Most valuable feature group | temporal (+4.77pp MAPE when removed) |
-| Guide assessment accuracy | **not yet validated** — see Limits in document 3 |
+| Guide assessment | **not validated against labelled cases** — by choice; see below |
+
+The band thresholds rest on measured segment error, not on measured agreement with human
+judgement. We built the labelled-case harness (`src/hardcases.py`) and its schema and left them
+unpopulated on purpose: the only label worth having is whether a guide was defensible against
+the comparables available at listing, and that is not recoverable from sale outcomes. The same
+contamination argument that made us delete our first underquoting flag applies to our own test
+set, so with no labelled negatives the false-positive rate is unmeasurable. Closing this needs
+agents' own recorded estimates, which stage two of the Underquoting and Other Agent Conduct Act
+2026 will publish for the first time.
 
 ## What is in here
 
@@ -69,7 +78,8 @@ src/clean.py split.py   raw PSI to a frozen train/calib/test split
 src/train_*.py          point model, quantile + conformal intervals, drift correction
 src/harness.py          the evaluation harness
 src/ablation.py         feature-group ablations
-src/hardcases.py        labelled-case scoring (template supplied, cases not yet collected)
+src/hardcases.py        labelled-case scoring harness and schema (not populated --
+                        see the note under Headline numbers)
 src/make_fake_predictions.py   proves the harness measures error correctly
 src/run_all.py          rebuild the whole project in dependency order
 artefacts/              trained models and indexes
