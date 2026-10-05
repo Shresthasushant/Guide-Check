@@ -1,0 +1,32 @@
+# Render Blueprint. In the Render dashboard: New > Blueprint, point it at the
+# GitHub repo holding this folder, and Render reads this file.
+#
+# The plan matters. This service holds the 1.25M-row feature table, three model
+# artefacts and a SHAP explainer in memory for the life of the process.
+# Measured on 2026-09-27: 896 MB once loaded, 1157 MB peak during startup, and
+# 1079 MB resident after serving five checks. Render's Free and Starter
+# instances are 512 MB and will be OOM-killed during startup. Standard (2 GB) is
+# the smallest that runs it.
+services:
+  - type: web
+    name: guide-check
+    runtime: python
+    plan: standard
+    region: singapore          # closest Render region to Sydney
+    buildCommand: pip install -r requirements.txt
+    startCommand: >-
+      gunicorn app:app --bind 0.0.0.0:$PORT
+      --workers 1 --threads 4 --timeout 180 --preload
+    # One worker on purpose: each worker loads its own copy of the model, so two
+    # workers means twice the memory for a demo that serves one person at a time.
+    # Threads handle concurrent requests instead.
+    # /healthz answers without touching the model, so a health check can never
+    # block on the 30-45s load or restart-loop the service during startup.
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.15"
+      - key: GUIDE_CHECK_PRELOAD
+        value: "1"
+      # Loads the model at import rather than on the first request, so the first
+      # visitor does not wait 45 seconds and trip the gunicorn worker timeout.

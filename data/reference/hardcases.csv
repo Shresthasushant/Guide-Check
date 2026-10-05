@@ -1,0 +1,2 @@
+case_id,address,suburb,postcode,property_type,land_area_m2,bedrooms,bathrooms,guide_low,guide_high,listed_date,sold_price,sold_date,label,source,notes
+EXAMPLE-1,1 Example St,MUDGEE,2850,house,600,3,1,500000,550000,2026-03-01,720000,2026-03-28,underquoted,NSW Fair Trading enforcement / media / own judgement,DELETE THIS ROW. label must be underquoted | defensible

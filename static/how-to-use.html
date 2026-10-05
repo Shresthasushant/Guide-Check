@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How to use it — Guide Check</title>
+<meta name="description" content="How to run a price-guide check and how to read the result: the four bands, the comparable sales, the drivers and the limits.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<script>try{var t=localStorage.getItem('gc-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script src="/assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="head-inner">
+    <a class="brand" href="/">
+      <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.4 2.6v18.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+        <circle cx="11" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="18.6" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="11" cy="8.4" r="2.7" fill="currentColor" opacity=".45"/>
+      </svg>
+      Guide&nbsp;Check
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/check">Analyse</a>
+      <a href="/how-to-use">How to use it</a>
+      <a href="/how-it-works">Methodology</a>
+      <a href="/limits">Limits</a>
+    </nav>
+    <div class="head-tools">
+      <a class="cta cta-head" href="/check">Check a guide</a>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch theme">
+        <svg data-icon="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 1v1.6M8 13.4V15M15 8h-1.6M2.6 8H1M12.9 3.1l-1.1 1.1M4.2 11.8l-1.1 1.1M12.9 12.9l-1.1-1.1M4.2 4.2 3.1 3.1"/></svg>
+        <svg data-icon="moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M13.5 9.6A5.9 5.9 0 0 1 6.4 2.5a5.9 5.9 0 1 0 7.1 7.1Z"/></svg>
+      </button>
+      <a class="cta cta-head" href="/check">Check a guide</a>
+      <button class="icon-btn nav-toggle" id="navBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap">
+    <div class="hero">
+      <p class="kicker">Guide</p>
+      <h1>How to use it</h1>
+      <p class="lede">Filling the form takes about twenty seconds. Reading the answer properly
+      takes a minute, and this page is that minute.</p>
+      <div class="hero-actions">
+        <a class="btn" href="/check">Open the tool</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 id="filling">1. Fill in the property</h2>
+      <p class="section-note">Only two fields are required: the suburb and the guide.</p>
+      <div class="table-scroll">
+        <table>
+          <caption>What each field does, and what happens if you leave it out.</caption>
+          <thead>
+            <tr><th>Field</th><th>Required</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Suburb</strong></td>
+              <td>Yes</td>
+              <td>Sets the location. Start typing and pick from the list — all 3,945 NSW suburbs in
+              the sales data are there. A suburb we do not hold is refused rather than guessed at.</td>
+            </tr>
+            <tr>
+              <td><strong>Postcode</strong></td>
+              <td>No</td>
+              <td>Disambiguates suburbs that share a name. Leave it blank and the suburb's own
+              postcode is used.</td>
+            </tr>
+            <tr>
+              <td><strong>Property type</strong></td>
+              <td>Yes</td>
+              <td>House or unit. Comparable sales are only ever drawn from the same type — a unit
+              is never compared against a house.</td>
+            </tr>
+            <tr>
+              <td><strong>Land area</strong></td>
+              <td>No</td>
+              <td>In square metres. It is the single strongest structural signal, so supply it if
+              the listing shows it. Left blank, the median land size for that property type is
+              used instead and the answer is correspondingly vaguer — which is normal for units,
+              where 60% of sales records have no land area at all.</td>
+            </tr>
+            <tr>
+              <td><strong>Advertised guide</strong></td>
+              <td>Yes</td>
+              <td>The price the agent is advertising. If the listing shows a range, use the lower
+              number — that is the one a buyer anchors on.</td>
+            </tr>
+            <tr>
+              <td><strong>Bedrooms, bathrooms</strong></td>
+              <td>No</td>
+              <td>Recorded, but they <em>cannot</em> change the answer. NSW sales data contains
+              no bedroom or bathroom counts, so the model was never trained on them. The form
+              collects them so a future dataset can start accumulating.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout note">
+        <p><strong>First run of the day is slow.</strong> The server loads a 1.25-million-row
+        table and the explainer on the first request, which takes 30–45 seconds. Every check
+        after that is fast.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 id="verdict">2. Read the verdict</h2>
+      <p class="section-note">There are four bands, plus a fifth state for when there is not
+      enough evidence to say anything.</p>
+
+      <div class="sev-key">
+        <div class="row">
+          <div class="lbl"><span class="sev-badge" style="color:var(--good)">
+            <svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.9" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M4.3 7.2 6.2 9.1l3.5-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Consistent</span></span></div>
+          <p>The guide sits within half a typical error of the comparable sales. Nothing here
+          needs explaining. <strong>The tool must be able to say this</strong> — one that flags
+          everything is useless.</p>
+        </div>
+        <div class="row">
+          <div class="lbl"><span class="sev-badge" style="color:var(--warn)">
+            <svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.9" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M7 3.8v3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="7" cy="9.9" r=".85" fill="currentColor"/></svg>
+            <span>At the low end</span></span></div>
+          <p>More than <strong>half</strong> a typical error below the comparable sales. Worth
+          noticing, but well inside the range our own model gets wrong routinely.</p>
+        </div>
+        <div class="row">
+          <div class="lbl"><span class="sev-badge" style="color:var(--alarm)">
+            <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.4 13.2 12.4H.8L7 1.4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M7 5.6v3.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="7" cy="10.6" r=".85" fill="currentColor"/></svg>
+            <span>Below the evidence</span></span></div>
+          <p>More than <strong>one</strong> typical error below. A gap this size is no longer
+          explainable by the model's own noise.</p>
+        </div>
+        <div class="row">
+          <div class="lbl"><span class="sev-badge" style="color:var(--alarm-hi)">
+            <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.4 13.2 12.4H.8L7 1.4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M7 5.6v3.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="7" cy="10.6" r=".85" fill="currentColor"/></svg>
+            <span>Well below</span></span></div>
+          <p>More than <strong>two</strong> typical errors below. This is the case the tool was
+          built to catch.</p>
+        </div>
+        <div class="row">
+          <div class="lbl"><span class="sev-badge" style="color:var(--muted)">
+            <svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.9" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 5.4a1.6 1.6 0 1 1 1.9 1.8v1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="7" cy="10.2" r=".85" fill="currentColor"/></svg>
+            <span>Not enough evidence</span></span></div>
+          <p>Fewer than 8 usable comparable sales. The tool refuses to band rather than guess.
+          Common in thinly traded rural suburbs.</p>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:34px">
+        <h3>What is a “typical error”?</h3>
+        <p>It is how wrong this model usually is, measured on sales it had never seen. Half the
+        time it is off by less than this, half the time by more:</p>
+        <ul class="ticks">
+          <li><strong>Metro (within 50 km of the Sydney CBD): 14.3%</strong></li>
+          <li><strong>Regional NSW: 16.0%</strong></li>
+        </ul>
+        <p>Using that as the yardstick is what keeps the bands honest. A guide that sits 10% below
+        the comparable sales is <em>inside</em> the range we get wrong all the time, so calling it
+        suspicious would be overclaiming. A guide 35% below is not.</p>
+        <div class="callout caution">
+          <p><strong>Why not just use the percentile?</strong> Because the comparable sales are
+          widely spread — the middle half of them typically spans about 28% of the median. A real
+          15% underquote lands around the 24th percentile, which sounds unremarkable. Scaling by
+          measured error fixes that. The percentile is still shown, because it is the honest
+          continuous number; it just no longer decides the wording.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 id="evidence">3. Read the evidence</h2>
+      <p class="section-note">The comparable sales are the point. The score is only a summary of
+      them.</p>
+      <div class="cols cols-2">
+        <div class="card">
+          <h3>The distribution strip</h3>
+          <p>Each grey dot is one of the 25 comparable sales, placed at its <em>adjusted</em>
+          price — what it implies your property is worth. The coloured line is the advertised
+          guide. If the line sits to the left of nearly every dot, almost every comparable sale
+          says the property is worth more than the guide.</p>
+          <p>The thin vertical rule marks the median of the adjusted sales. That median, not the
+          model's own estimate, is what the guide is judged against.</p>
+        </div>
+        <div class="card">
+          <h3>The comparables table</h3>
+          <p>The five nearest sales, named: address, date, land size, what it actually sold for,
+          the adjustment applied, and the adjusted figure. These are real NSW Valuer General
+          records — you can look them up.</p>
+          <p>The adjustment is the model's view of how much more or less your property is worth
+          than that one. It is capped at roughly half-to-double, because beyond that the two
+          properties are not really comparable.</p>
+        </div>
+      </div>
+      <div class="callout note">
+        <p>Every chart has a <strong>table view</strong> underneath it — open it to read all 25
+        adjusted values as numbers. No figure on this site is reachable only by hovering.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 id="drivers">4. Read the drivers, then the limits</h2>
+      <div class="cols cols-2">
+        <div class="card">
+          <h3>What moved the estimate</h3>
+          <p>The four features that pushed the model's estimate furthest, and in which direction.
+          Blue bars raise the estimate, orange bars lower it, and the number is the percentage
+          effect on the price.</p>
+          <p>Expect <em>suburb</em>, <em>land area</em> and <em>date of sale</em> to dominate —
+          that matches the ablation tests, where removing the time features cost the most
+          accuracy.</p>
+        </div>
+        <div class="card">
+          <h3>Limits of this answer</h3>
+          <p>Shown on every result, not buried in a report: how often the model's range is
+          actually right, how old the comparable evidence is, that the estimate is suburb-level,
+          and that any bedroom and bathroom counts you typed were not used.</p>
+          <p>If a limit makes the answer unusable for your property, that is the tool working
+          correctly. <a href="/limits">The full list is here.</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 id="demo">Five cases to try</h2>
+      <p class="section-note">These are the shipped demo cases. Each link runs it.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Case</th><th>Suburb</th><th>Type</th><th class="n">Land</th><th class="n">Guide</th><th>Expected</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="/check?suburb=PARRAMATTA&amp;postcode=2150&amp;type=house&amp;land=450&amp;guide=950000">D1 — run it</a></td>
+              <td>Parramatta</td><td>house</td><td class="n">450 m²</td><td class="n">$950,000</td>
+              <td><strong>Well below</strong> — the clearest case the tool is built to catch</td>
+            </tr>
+            <tr>
+              <td><a href="/check?suburb=PARRAMATTA&amp;postcode=2150&amp;type=house&amp;land=450&amp;guide=1450000">D2 — run it</a></td>
+              <td>Parramatta</td><td>house</td><td class="n">450 m²</td><td class="n">$1,450,000</td>
+              <td><strong>Consistent</strong> — same property, defensible guide</td>
+            </tr>
+            <tr>
+              <td><a href="/check?suburb=BONDI&amp;postcode=2026&amp;type=unit&amp;guide=1200000">D3 — run it</a></td>
+              <td>Bondi</td><td>unit</td><td class="n">—</td><td class="n">$1,200,000</td>
+              <td><strong>At the low end</strong> — the no-land-area fallback</td>
+            </tr>
+            <tr>
+              <td><a href="/check?suburb=MUDGEE&amp;postcode=2850&amp;type=house&amp;land=800&amp;guide=600000">D4 — run it</a></td>
+              <td>Mudgee</td><td>house</td><td class="n">800 m²</td><td class="n">$600,000</td>
+              <td><strong>Below the evidence</strong> — regional error segment</td>
+            </tr>
+            <tr>
+              <td><a href="/check?suburb=DUBBO&amp;postcode=2830&amp;type=house&amp;land=700&amp;guide=450000">D5 — run it</a></td>
+              <td>Dubbo</td><td>house</td><td class="n">700 m²</td><td class="n">$450,000</td>
+              <td><strong>Below the evidence</strong> — thinner sales pool</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose"><strong>D1 and D2 together are the demonstration.</strong> Same property,
+      two guides. The first is called out, the second is not.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 id="trouble">If something goes wrong</h2>
+      <div class="prose">
+        <ul class="ticks">
+          <li><strong>“Suburb not found.”</strong> The spelling must match a NSW suburb in the
+          sales data. Use the dropdown rather than typing it out. Interstate suburbs are not
+          held — this is NSW data only.</li>
+          <li><strong>“Not enough comparable sales.”</strong> Fewer than 8 similar recent sales
+          nearby. Try without a land area, or accept that the evidence is too thin here.</li>
+          <li><strong>“Could not reach the backend.”</strong> The server is not running. Start it
+          with <code>python app.py</code> and reload.</li>
+          <li><strong>The first check hangs for 30–45 seconds.</strong> Expected — that is the
+          model loading. It only happens once per server start.</li>
+        </ul>
+      </div>
+      <div class="hero-actions">
+        <a class="btn" href="/check">Open the tool</a>
+        <a class="btn ghost" href="/how-it-works">How it works →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h4>The tool</h4>
+        <a href="/check">Analyse a guide</a>
+        <a href="/how-to-use">How to use it</a>
+      </div>
+      <div class="foot-col">
+        <h4>Method</h4>
+        <a href="/how-it-works">Methodology</a>
+        <a href="/limits">Limits and caveats</a>
+      </div>
+      <div class="foot-col">
+        <h4>Project</h4>
+        <a href="/how-it-works#accuracy">Measured accuracy</a>
+        <a href="/how-it-works#data">Data source</a>
+      </div>
+    </div>
+    <p class="foot-legal">Guide Check — FIN80031 AI for Finance and Accounting, Swinburne
+    University. Built on 1,249,163 NSW Valuer General property sales. Not legal, valuation or
+    financial advice: the output is a statistical observation about a price against comparable
+    sales, not an allegation of underquoting.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+[
+  {
+    "arm": "cqr",
+    "model_version": "v1",
+    "n": 119095,
+    "MAE": 329152.8144774778,
+    "RMSE": 1057810.50711099,
+    "MAPE_%": 25.809205944451797,
+    "MedAPE_%": 16.762787045925368,
+    "n_with_interval": 119095,
+    "nominal_coverage_%": 80.0,
+    "empirical_coverage_%": 75.74289432805743,
+    "coverage_gap_pp": -4.257105671942568,
+    "mean_width_$": 884741.5187990993,
+    "median_width_$": 585142.0580319128,
+    "mean_width_%_of_price": 76.63686335285485,
+    "pinball_lower": 62643.53845189043,
+    "pinball_upper": 106388.18552370094
+  },
+  {
+    "arm": "lgbm",
+    "model_version": "v1",
+    "n": 119095,
+    "MAE": 329152.8144774778,
+    "RMSE": 1057810.50711099,
+    "MAPE_%": 25.809205944451797,
+    "MedAPE_%": 16.762787045925368
+  },
+  {
+    "arm": "mapie_split",
+    "model_version": "v1",
+    "n": 119095,
+    "MAE": 329152.8144774778,
+    "RMSE": 1057810.50711099,
+    "MAPE_%": 25.809205944451797,
+    "MedAPE_%": 16.762787045925368,
+    "n_with_interval": 119095,
+    "nominal_coverage_%": 80.0,
+    "empirical_coverage_%": 77.61366975943574,
+    "coverage_gap_pp": -2.386330240564263,
+    "mean_width_$": 807640.5702593259,
+    "median_width_$": 631892.4165931507,
+    "mean_width_%_of_price": 70.6978203753478,
+    "pinball_lower": 67398.84423331193,
+    "pinball_upper": 114866.57808363311
+  },
+  {
+    "arm": "quantile_raw",
+    "model_version": "v1",
+    "n": 119095,
+    "MAE": 329152.8144774778,
+    "RMSE": 1057810.50711099,
+    "MAPE_%": 25.809205944451797,
+    "MedAPE_%": 16.762787045925368,
+    "n_with_interval": 119095,
+    "nominal_coverage_%": 80.0,
+    "empirical_coverage_%": 72.24484655107267,
+    "coverage_gap_pp": -7.755153448927331,
+    "mean_width_$": 832765.978678936,
+    "median_width_$": 543033.8017638839,
+    "mean_width_%_of_price": 72.06902255276279,
+    "pinball_lower": 62220.41035916906,
+    "pinball_upper": 108607.75114093395
+  },
+  {
+    "arm": "xgb",
+    "model_version": "v1",
+    "n": 119095,
+    "MAE": 330922.47965767665,
+    "RMSE": 1057253.1627313192,
+    "MAPE_%": 25.894179300328418,
+    "MedAPE_%": 17.133911764705882
+  },
+  {
+    "arm": "baseline_linreg",
+    "model_version": "v1",
+    "n": 119095,
+    "MAE": 448437.4899401103,
+    "RMSE": 1282721.563110835,
+    "MAPE_%": 36.56894415273816,
+    "MedAPE_%": 22.236371332404854
+  },
+  {
+    "arm": "baseline_median",
+    "model_version": "v1",
+    "n": 119095,
+    "MAE": 498921.6108558249,
+    "RMSE": 1259585.868695331,
+    "MAPE_%": 41.325629909241094,
+    "MedAPE_%": 29.386953209120005
+  }
+]

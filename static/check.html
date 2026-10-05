@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Check a guide — Guide Check</title>
+<meta name="description" content="Run a NSW price guide against 25 adjusted comparable sales and see where it sits.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<script>try{var t=localStorage.getItem('gc-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script src="/assets/app.js" defer></script>
+<script src="/assets/check.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="head-inner">
+    <a class="brand" href="/">
+      <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.4 2.6v18.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+        <circle cx="11" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="18.6" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="11" cy="8.4" r="2.7" fill="currentColor" opacity=".45"/>
+      </svg>
+      Guide&nbsp;Check
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/check">Analyse</a>
+      <a href="/how-to-use">How to use it</a>
+      <a href="/how-it-works">Methodology</a>
+      <a href="/limits">Limits</a>
+    </nav>
+    <div class="head-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch theme">
+        <svg data-icon="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 1v1.6M8 13.4V15M15 8h-1.6M2.6 8H1M12.9 3.1l-1.1 1.1M4.2 11.8l-1.1 1.1M12.9 12.9l-1.1-1.1M4.2 4.2 3.1 3.1"/></svg>
+        <svg data-icon="moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M13.5 9.6A5.9 5.9 0 0 1 6.4 2.5a5.9 5.9 0 1 0 7.1 7.1Z"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" id="navBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <div class="hero" style="padding:46px 0 30px">
+      <p class="kicker">The tool</p>
+      <h1 style="font-size:clamp(30px,4.4vw,44px)">Check a price guide</h1>
+      <p class="lede" style="font-size:18px">Against 25 recent comparable sales, adjusted to the
+      property. New here? <a href="/how-to-use">Read how to use it first.</a></p>
+    </div>
+
+    <div class="tool-grid" id="toolGrid">
+
+      <!-- Mobile only: once a report exists the query collapses to this bar, so the
+           answer is never buried under the form that produced it. -->
+      <button type="button" class="query-summary mobile-only" id="querySummary" hidden>
+        <svg class="qs-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7.2" cy="7.2" r="4.6"/><path d="m10.6 10.6 3 3" stroke-linecap="round"/></svg>
+        <span class="qs-txt" id="qsTxt">Edit the query</span>
+        <span class="qs-act">EDIT</span>
+      </button>
+
+      <!-- ------------------------------------------------------------- query -->
+      <form class="query-panel" id="checkForm" novalidate>
+        <fieldset>
+          <legend>The property</legend>
+
+          <div class="field">
+            <label for="suburb">Suburb <span class="opt">(NSW)</span></label>
+            <div class="combo" id="suburbCombo">
+              <div class="combo-input-wrap">
+                <svg class="mag" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7.2" cy="7.2" r="4.6"/><path d="m10.6 10.6 3 3" stroke-linecap="round"/></svg>
+                <input id="suburb" name="suburb" type="text" placeholder="Pick a suburb, or start typing…"
+                       role="combobox" aria-expanded="false" aria-autocomplete="list"
+                       aria-controls="suburbListbox" aria-describedby="suburbHelp"
+                       autocomplete="off" autocorrect="off" spellcheck="false" required>
+                <svg class="combo-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 8.4 3 3 6-6.6"/></svg>
+                <button type="button" class="combo-clear" id="suburbClear" aria-label="Clear the suburb">
+                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+                </button>
+                <button type="button" class="combo-toggle" id="suburbToggle" tabindex="-1"
+                        aria-label="Show the suburb list" aria-expanded="false" aria-controls="suburbListbox">
+                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 4.5 3.5 3.5 3.5-3.5"/></svg>
+                </button>
+              </div>
+              <ul class="combo-list" id="suburbListbox" role="listbox" aria-label="Suburb suggestions" hidden></ul>
+            </div>
+            <p class="help" id="suburbHelp">Loading the NSW suburb list…</p>
+          </div>
+
+          <div class="pair">
+            <div class="field">
+              <label for="postcode">Postcode <span class="opt">opt.</span></label>
+              <input id="postcode" name="postcode" placeholder="2150" inputmode="numeric" maxlength="4" autocomplete="off" aria-describedby="postcodeHelp">
+              <p class="help is-quiet" id="postcodeHelp" hidden>Filled from the suburb — edit if the listing differs.</p>
+            </div>
+            <div class="field">
+              <label for="ptype">Type</label>
+              <select id="ptype" name="ptype">
+                <option value="house">house</option>
+                <option value="unit">unit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="land">Land area <span class="opt">m², optional</span></label>
+            <input id="land" name="land" placeholder="450" inputmode="numeric" autocomplete="off">
+            <p class="help">Strongest structural signal — supply it if the listing shows it.</p>
+          </div>
+
+          <div class="pair">
+            <div class="field">
+              <label for="beds">Bedrooms <span class="opt">not used</span></label>
+              <input id="beds" name="beds" placeholder="4" inputmode="numeric" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="baths">Bathrooms <span class="opt">not used</span></label>
+              <input id="baths" name="baths" placeholder="2" inputmode="numeric" autocomplete="off">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>The advertised guide</legend>
+          <div class="field">
+            <label for="guide">Guide price <span class="opt">AUD</span></label>
+            <div class="money">
+              <input id="guide" name="guide" placeholder="950,000" inputmode="numeric" autocomplete="off" required>
+            </div>
+            <p class="help">If the listing shows a range, use the lower number.</p>
+          </div>
+        </fieldset>
+
+        <button class="btn" id="runBtn" type="submit" style="width:100%;justify-content:center">
+          Run the check
+        </button>
+        <p class="form-msg" id="formMsg" role="alert" aria-live="assertive"></p>
+
+        <div class="presets">
+          <h4>Demo cases</h4>
+          <button type="button" class="preset-btn" data-suburb="PARRAMATTA" data-postcode="2150" data-ptype="house" data-land="450" data-guide="950000">
+            <b>D1</b> <span>Parramatta house · $950k <span class="out">well below</span></span>
+          </button>
+          <button type="button" class="preset-btn" data-suburb="PARRAMATTA" data-postcode="2150" data-ptype="house" data-land="450" data-guide="1450000">
+            <b>D2</b> <span>Same house · $1.45M <span class="out">consistent</span></span>
+          </button>
+          <button type="button" class="preset-btn" data-suburb="BONDI" data-postcode="2026" data-ptype="unit" data-land="" data-guide="1200000">
+            <b>D3</b> <span>Bondi unit · $1.2M <span class="out">low end</span></span>
+          </button>
+          <button type="button" class="preset-btn" data-suburb="MUDGEE" data-postcode="2850" data-ptype="house" data-land="800" data-guide="600000">
+            <b>D4</b> <span>Mudgee house · $600k <span class="out">below</span></span>
+          </button>
+          <button type="button" class="preset-btn" data-suburb="DUBBO" data-postcode="2830" data-ptype="house" data-land="700" data-guide="450000">
+            <b>D5</b> <span>Dubbo house · $450k <span class="out">below</span></span>
+          </button>
+        </div>
+      </form>
+
+      <!-- ------------------------------------------------------------ report -->
+      <div class="result-col">
+
+        <div class="state" id="emptyState">
+          <svg class="state-glyph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M4 26V6" stroke-linecap="round"/><path d="M4 26h24" stroke-linecap="round"/>
+            <circle cx="11" cy="19" r="2.6"/><circle cx="18" cy="14" r="2.6"/><circle cx="25" cy="17" r="2.6"/>
+          </svg>
+          <h3>No analysis yet</h3>
+          <p>Enter a suburb and an advertised guide, or pick one of the demo cases, and the
+          evidence report will be built here.</p>
+        </div>
+
+        <div class="state" id="loadingState" hidden aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <h3>Scoring against the model</h3>
+          <p>The first check after a server restart takes 30–45 seconds while the 1.25-million-row
+          feature table and the explainer load.</p>
+        </div>
+
+        <!-- ================================================== the report === -->
+        <article id="result" class="report" hidden aria-live="polite">
+
+          <!-- ------------------------------------------------- masthead --- -->
+          <header class="masthead">
+            <span class="lbl lbl-lg">Property analysis</span>
+            <h2 class="subject-name" id="subjectName">—</h2>
+            <div class="subject-meta" id="subjectMeta"></div>
+
+            <div class="advert">
+              <div class="col">
+                <span class="lbl">Advertised guide</span>
+                <span class="figure" id="guideFigure">—</span>
+                <span class="sub" id="guideSub"></span>
+              </div>
+              <div class="verdict-slot" id="verdictSlot">
+                <span class="sev-badge" id="sevBadge"></span>
+              </div>
+            </div>
+          </header>
+
+          <!-- ------------------------------------- 01 evidence position --- -->
+          <section class="report-sec" aria-labelledby="secEvidence">
+            <div class="rubric">
+              <span class="n">01</span>
+              <h3 id="secEvidence">Evidence position</h3>
+              <span class="aside" id="epAside"></span>
+            </div>
+
+            <div class="evidence-position">
+              <div class="ep-figure" id="epFigure"></div>
+              <div class="ep-readout">
+                <div class="guide-cell" id="epGuideCell">
+                  <span class="lbl">Guide</span>
+                  <span class="v is-guide" id="epGuide">—</span>
+                  <span class="n2" id="epGuideN"></span>
+                </div>
+                <div>
+                  <span class="lbl">Evidence range</span>
+                  <span class="v" id="epRange">—</span>
+                  <span class="n2">middle 50% of adjusted comparables</span>
+                </div>
+                <div>
+                  <span class="lbl">Comparable median</span>
+                  <span class="v" id="epMedian">—</span>
+                  <span class="n2" id="epMedianN"></span>
+                </div>
+              </div>
+            </div>
+
+            <p class="ep-caption" id="epCaption"></p>
+
+            <details class="reveal">
+              <summary><span class="plus" aria-hidden="true"></span>How was this calculated?</summary>
+              <div class="reveal-body">
+                <ul class="calc" id="epCalc"></ul>
+              </div>
+            </details>
+          </section>
+
+          <!-- ------------------------------------ 02 what the evidence shows -->
+          <section class="report-sec" aria-labelledby="secFinding">
+            <div class="rubric">
+              <span class="n">02</span>
+              <h3 id="secFinding">What the evidence shows</h3>
+            </div>
+
+            <div class="finding" id="findingCard">
+              <p class="finding-plain" id="findingPlain"></p>
+              <p class="finding-detail" id="findingDetail"></p>
+            </div>
+
+            <div class="metrics">
+              <div>
+                <span class="lbl">Gap to median</span>
+                <span class="v" id="mGap">—</span>
+                <span class="k" id="mGapK"></span>
+              </div>
+              <div>
+                <span class="lbl">In typical errors</span>
+                <span class="v" id="mErrs">—</span>
+                <span class="k" id="mErrsK"></span>
+              </div>
+              <div>
+                <span class="lbl">Model estimate</span>
+                <span class="v" id="mModel">—</span>
+                <span class="k">independent of the comparables</span>
+              </div>
+              <div>
+                <span class="lbl">Percentile</span>
+                <span class="v" id="mPct">—</span>
+                <span class="k" id="mPctK"></span>
+              </div>
+            </div>
+          </section>
+
+          <!-- --------------------------------------- 03 comparable sales --- -->
+          <section class="report-sec" aria-labelledby="secComps">
+            <div class="rubric">
+              <span class="n">03</span>
+              <h3 id="secComps">Comparable sales</h3>
+              <span class="aside">Select a row or a marker</span>
+            </div>
+
+            <p class="chart-sub" id="compsIntro"></p>
+
+            <!-- Proximity locator. /api/check returns a distance per comparable but no
+                 coordinates, so this plots real distance-from-subject rather than a
+                 fabricated map. Selection is linked with the list below. -->
+            <div class="locator" id="locator"></div>
+            <p class="chart-sub" id="locatorNote" style="margin:10px 0 22px"></p>
+
+            <div class="comps-list" id="compsList"></div>
+
+            <details class="reveal">
+              <summary><span class="plus" aria-hidden="true"></span>All <span id="distCount">25</span> adjusted comparable values</summary>
+              <div class="reveal-body">
+                <div class="table-scroll">
+                  <table>
+                    <caption>Every comparable in the distribution, adjusted to the subject property.</caption>
+                    <thead><tr><th class="n">#</th><th class="n">adjusted price</th><th>position vs the guide</th></tr></thead>
+                    <tbody id="distBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </details>
+          </section>
+
+          <!-- ------------------------------------- 04 how we arrived here --- -->
+          <section class="report-sec" aria-labelledby="secMethod">
+            <div class="rubric">
+              <span class="n">04</span>
+              <h3 id="secMethod">How we arrived here</h3>
+            </div>
+
+            <div class="method">
+              <details class="method-step">
+                <summary>
+                  <span class="sn">01</span>
+                  <span>
+                    <span class="st">Comparable sales</span>
+                    <span class="sd" id="m1sd">Recent sales of the same property type near the subject.</span>
+                  </span>
+                  <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+                </summary>
+                <div class="method-body">
+                  <p>The comparables come from the NSW Valuer General Property Sales Information
+                  record — real, settled transactions, not listings or estimates. A nearest-neighbour
+                  index built over location, land area and property type returns the closest recent
+                  sales to the subject.</p>
+                  <p class="mono-note" id="m1note"></p>
+                </div>
+              </details>
+
+              <details class="method-step">
+                <summary>
+                  <span class="sn">02</span>
+                  <span>
+                    <span class="st">Similarity filtering</span>
+                    <span class="sd">Only same-type sales inside the lookback window qualify.</span>
+                  </span>
+                  <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+                </summary>
+                <div class="method-body">
+                  <p>A house is never compared against a unit. Sales older than the lookback window
+                  are excluded, because a two-year-old price carries a market movement the
+                  adjustment cannot see. The subject's own sale, if it appears in the data, is
+                  excluded so a property is never compared against itself.</p>
+                  <p>Twenty-five comparables feed the distribution — far more than the five a human
+                  workpaper would show. A percentile computed from five numbers is too granular to
+                  mean anything.</p>
+                </div>
+              </details>
+
+              <details class="method-step">
+                <summary>
+                  <span class="sn">03</span>
+                  <span>
+                    <span class="st">Adjustments</span>
+                    <span class="sd">Each sale is moved to what it would be worth as the subject.</span>
+                  </span>
+                  <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+                </summary>
+                <div class="method-body">
+                  <p>The model is not asked for a price. It is asked a narrower question it answers
+                  far better: <b>how much more or less is the subject worth than this particular
+                  comparable?</b> That ratio is applied to the comparable's real sale price.</p>
+                  <p class="mono-note">adjusted = sale_price × [ model(subject) ÷ model(comparable) ]</p>
+                  <p>Taking a ratio cancels most of the model's level error — if it is 8% low on the
+                  subject it is usually 8% low on a near-identical neighbour too. Adjustments are
+                  clipped at roughly half to double: beyond that the two properties are not really
+                  comparable and the adjustment cannot be trusted.</p>
+                </div>
+              </details>
+
+              <details class="method-step">
+                <summary>
+                  <span class="sn">04</span>
+                  <span>
+                    <span class="st">Evidence comparison</span>
+                    <span class="sd">The guide is placed inside the adjusted distribution.</span>
+                  </span>
+                  <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+                </summary>
+                <div class="method-body">
+                  <p>The 25 adjusted values form an empirical distribution. The advertised guide is
+                  located inside it and reported as a percentile, not a yes/no flag — there is no
+                  arbitrary threshold, and the number degrades gracefully instead of falling off a
+                  cliff.</p>
+                  <p class="mono-note" id="m4note"></p>
+                </div>
+              </details>
+
+              <details class="method-step">
+                <summary>
+                  <span class="sn">05</span>
+                  <span>
+                    <span class="st">Final analysis</span>
+                    <span class="sd">The gap is scaled by the measured error for this segment.</span>
+                  </span>
+                  <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+                </summary>
+                <div class="method-body">
+                  <p>A gap only matters relative to how wrong this tool usually is. The distance
+                  between the guide and the comparable median is divided by the model's measured
+                  typical error for properties of this segment, so a gap is called notable only when
+                  it is larger than the noise.</p>
+                  <p class="mono-note" id="m5note"></p>
+                  <p>That scaled figure, not the raw percentage, sets the band shown at the top of
+                  this report.</p>
+                </div>
+              </details>
+            </div>
+
+            <!-- drivers -->
+            <div style="margin-top:38px">
+              <div class="chart-head">
+                <h3>What moved this estimate</h3>
+              </div>
+              <p class="chart-sub">The four largest SHAP contributions from the trained model, as a
+              percentage effect on the estimate.</p>
+              <div class="chart-figure" id="driversChart" role="list"></div>
+              <div class="legend">
+                <span class="item"><span class="swatch bar" style="background:var(--pos)"></span>raises the estimate</span>
+                <span class="item"><span class="swatch bar" style="background:var(--neg)"></span>lowers the estimate</span>
+              </div>
+              <details class="reveal">
+                <summary><span class="plus" aria-hidden="true"></span>Table view</summary>
+                <div class="reveal-body">
+                  <div class="table-scroll">
+                    <table>
+                      <thead><tr><th>feature</th><th class="n">this property</th><th class="n">effect</th></tr></thead>
+                      <tbody id="drvBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </details>
+            </div>
+
+            <!-- model interval -->
+            <div style="margin-top:38px">
+              <div class="chart-head">
+                <h3>The model's own range</h3>
+              </div>
+              <p class="chart-sub">A nominal 80% interval around the model's point estimate. Measured
+              on held-out sales it contains the true price 77.6% of the time. The assessment above
+              uses the comparable sales, not this range.</p>
+              <div class="chart-figure" id="intervalChart"></div>
+            </div>
+          </section>
+
+          <!-- ------------------------------------- 05 what we don't know --- -->
+          <section class="report-sec" aria-labelledby="secLimits">
+            <div class="rubric">
+              <span class="n">05</span>
+              <h3 id="secLimits">What we don't know</h3>
+              <span class="aside">Confidence, stated</span>
+            </div>
+
+            <ul class="conf-list" id="confList"></ul>
+
+            <p class="disclaimer" id="disclaimer"></p>
+          </section>
+
+          <div class="report-actions">
+            <button class="btn ghost" id="printBtn" type="button">Print or save as PDF</button>
+            <a class="btn ghost" href="/limits">What this cannot tell you →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h4>The tool</h4>
+        <a href="/check">Analyse a guide</a>
+        <a href="/how-to-use">How to use it</a>
+      </div>
+      <div class="foot-col">
+        <h4>Method</h4>
+        <a href="/how-it-works">Methodology</a>
+        <a href="/limits">Limits and caveats</a>
+      </div>
+      <div class="foot-col">
+        <h4>Project</h4>
+        <a href="/how-it-works#accuracy">Measured accuracy</a>
+        <a href="/how-it-works#data">Data source</a>
+      </div>
+    </div>
+    <p class="foot-legal">Guide Check — FIN80031 AI for Finance and Accounting, Swinburne
+    University. Built on 1,249,163 NSW Valuer General property sales. Not legal, valuation or
+    financial advice: the output is a statistical observation about a price against comparable
+    sales, not an allegation of underquoting.</p>
+  </div>
+</footer>
+
+</body>
+</html>

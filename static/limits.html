@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Limits — Guide Check</title>
+<meta name="description" content="What Guide Check cannot tell you: no validated precision or recall, suburb-level estimates, ageing evidence, and no bedroom or bathroom data.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<script>try{var t=localStorage.getItem('gc-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script src="/assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="head-inner">
+    <a class="brand" href="/">
+      <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.4 2.6v18.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+        <circle cx="11" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="18.6" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="11" cy="8.4" r="2.7" fill="currentColor" opacity=".45"/>
+      </svg>
+      Guide&nbsp;Check
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/check">Analyse</a>
+      <a href="/how-to-use">How to use it</a>
+      <a href="/how-it-works">Methodology</a>
+      <a href="/limits">Limits</a>
+    </nav>
+    <div class="head-tools">
+      <a class="cta cta-head" href="/check">Check a guide</a>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch theme">
+        <svg data-icon="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 1v1.6M8 13.4V15M15 8h-1.6M2.6 8H1M12.9 3.1l-1.1 1.1M4.2 11.8l-1.1 1.1M12.9 12.9l-1.1-1.1M4.2 4.2 3.1 3.1"/></svg>
+        <svg data-icon="moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M13.5 9.6A5.9 5.9 0 0 1 6.4 2.5a5.9 5.9 0 1 0 7.1 7.1Z"/></svg>
+      </button>
+      <a class="cta cta-head" href="/check">Check a guide</a>
+      <button class="icon-btn nav-toggle" id="navBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap">
+    <div class="hero">
+      <p class="kicker">Honest limits</p>
+      <h1>What this cannot tell you</h1>
+      <p class="lede">Every one of these is real and measured. None of them is hidden in a
+      footnote — they appear on each result as well as here.</p>
+    </div>
+  </div>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>The biggest gap</h2>
+      <div class="prose">
+        <div class="callout stop">
+          <p><strong>The guide assessment has no validated precision or recall.</strong> We can
+          show you that a guide sits well below the comparable evidence. We cannot yet tell you
+          how often that judgement agrees with a human expert, because that needs a labelled set
+          of real NSW listings — both genuinely underquoted ones <em>and</em> defensible ones
+          that happened to sell high — and we have not collected it.</p>
+          <p>The scoring code for it is written and runs. The case file holds only a template
+          row. Until it is filled, the band thresholds rest on the measured-error argument, not
+          on measured agreement with human judgement. This is the largest open gap in the
+          project and we are not disguising it.</p>
+        </div>
+        <p>Why the missing half matters more than you would expect: without genuine
+        <em>defensible-but-sold-high</em> cases, the false-positive rate is unmeasurable. A tool
+        that flags honest guides is worse than no tool, and we cannot currently prove this one
+        does not.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Limits of the estimate</h2>
+
+      <p class="section-note">Each limitation is tagged by how much we actually know about it —
+      measured, partly measured, or not measured at all. The tag is a word and a glyph, never a
+      colour on its own.</p>
+
+      <ul class="conf-list">
+        <li class="conf conf-known">
+          <span class="conf-tag"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.6 6.2 5.3 7.9 8.5 4.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Known</span>
+          <div class="conf-text">
+            <h3>The interval is wide, and slightly too narrow</h3>
+            <p>The 80% interval averages <strong>78.5%</strong> of the sale price — honest, but not
+            very informative on its own. That is why the guide assessment uses the comparable
+            sales rather than this range.</p>
+            <p>It covers <strong>77.6%</strong> of cases, not the 80% it aims for. Slightly narrow,
+            consistent with the geographic miscalibration documented in the conformal prediction
+            literature. Every result displays the measured 77.6%, not the nominal figure.</p>
+          </div>
+        </li>
+        <li class="conf conf-known">
+          <span class="conf-tag"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.6 6.2 5.3 7.9 8.5 4.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Known</span>
+          <div class="conf-text">
+            <h3>The comparable sales are frozen</h3>
+            <p>The comparable-sales index ends at <strong>30 September 2025</strong>, deliberately,
+            so it can never contain a sale from the test set used to measure accuracy. The
+            evidence therefore ages as the tool is used.</p>
+            <p>Every result reports the cutoff and how many months past it the valuation date
+            sits. In a rising market, treat the estimate as a floor on today's evidence — and
+            rebuild the index against fresher data before relying on it.</p>
+          </div>
+        </li>
+        <li class="conf conf-limited">
+          <span class="conf-tag"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 6h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Limited</span>
+          <div class="conf-text">
+            <h3>It is suburb-level, not street-level</h3>
+            <p>The source data has no coordinates, only address text, so every sale is resolved to
+            its suburb centroid. For a property you type in, everything except type, postcode,
+            land area and date comes from the most recent recorded sale in that suburb.</p>
+            <p><strong>Two properties of the same type and land size in one suburb get the same
+            answer.</strong> A waterfront position, a main-road frontage, a renovated kitchen and
+            a derelict bathroom are all invisible.</p>
+          </div>
+        </li>
+        <li class="conf conf-limited">
+          <span class="conf-tag"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 6h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Limited</span>
+          <div class="conf-text">
+            <h3>Land area is missing more often than you would think</h3>
+            <p>Land area is absent on 23% of residential sales, and on <strong>60% of
+            units</strong>, where the fallback is the median land size for the type. It is the
+            strongest structural signal the model has, so a missing value measurably widens the
+            answer.</p>
+            <p>Supply it from the listing whenever you can.</p>
+          </div>
+        </li>
+        <li class="conf conf-unknown">
+          <span class="conf-tag"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.2 2"/><path d="M4.6 4.7a1.4 1.4 0 1 1 1.7 1.6v.7" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="6" cy="8.6" r=".75" fill="currentColor"/></svg>Unknown</span>
+          <div class="conf-text">
+            <h3>No bedrooms, bathrooms or condition</h3>
+            <p>NSW sales data contains no bedroom or bathroom counts. The form records them and the
+            result says plainly that they were not used. They are the single largest missing
+            feature — collecting them from live listings is what would let a future model use
+            them.</p>
+            <p>Condition, renovation, aspect and view are not in the data in any form. Two
+            identical blocks can differ by a third on these alone.</p>
+          </div>
+        </li>
+        <li class="conf conf-unknown">
+          <span class="conf-tag"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.2 2"/><path d="M4.6 4.7a1.4 1.4 0 1 1 1.7 1.6v.7" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="6" cy="8.6" r=".75" fill="currentColor"/></svg>Unknown</span>
+          <div class="conf-text">
+            <h3>Whether this tool agrees with a human expert</h3>
+            <p>The guide assessment has <strong>no validated precision or recall</strong>. The
+            scoring code is written and runs; the labelled case file holds only a template row.
+            Until it is filled, the band thresholds rest on the measured-error argument, not on
+            measured agreement with human judgement.</p>
+            <p>This is the largest open gap in the project, restated at the top of this page.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Limits of the question</h2>
+      <div class="prose">
+        <p>Even a perfect model would not answer the question people most want answered.</p>
+        <ul class="ticks">
+          <li><strong>Underquoting depends on the agent's own estimate.</strong> Under NSW law the
+          test is whether the guide was less than the agent's reasonable estimate of the likely
+          selling price. That estimate lives in the agent's records, not in the sales data. No
+          price model can observe it.</li>
+          <li><strong>Selling above the guide is not misconduct.</strong> Two determined bidders
+          will push a price past any honest estimate. This tool deliberately does not treat “sold
+          high” as evidence of anything.</li>
+          <li><strong>A defensible guide can still be a low one.</strong> Agents may quote toward
+          the bottom of a supportable range. That is a strategy, not a breach, and the tool will
+          correctly stay quiet.</li>
+          <li><strong>The market moves.</strong> A guide that was defensible when set may look low
+          three months later. The tool judges against evidence up to the index cutoff, not
+          against the market on auction day.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>How to use it responsibly</h2>
+      <div class="prose">
+        <ul class="ticks">
+          <li><strong>Read the comparables, not just the band.</strong> If the five nearest sales
+          are obviously unlike the property you are looking at, the answer is weak no matter what
+          the badge says.</li>
+          <li><strong>Treat “well below” as a reason to ask a question,</strong> not as a
+          conclusion. A good question is: which comparable sales support this guide?</li>
+          <li><strong>Do not repeat the output as an accusation.</strong> It is a statistical
+          observation about a price against comparable sales. Saying more than that is not
+          supported by anything on this site.</li>
+          <li><strong>For a decision that matters, get a valuation.</strong> A registered valuer
+          inspects the property. This model has never seen it.</li>
+        </ul>
+        <div class="callout stop">
+          <p>Guide Check is not legal, valuation or financial advice, and is not a substitute for
+          professional advice or your own inspection of a property.</p>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a class="btn" href="/check">Check a guide</a>
+        <a class="btn ghost" href="/how-it-works#accuracy">See the measured accuracy →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h4>The tool</h4>
+        <a href="/check">Analyse a guide</a>
+        <a href="/how-to-use">How to use it</a>
+      </div>
+      <div class="foot-col">
+        <h4>Method</h4>
+        <a href="/how-it-works">Methodology</a>
+        <a href="/limits">Limits and caveats</a>
+      </div>
+      <div class="foot-col">
+        <h4>Project</h4>
+        <a href="/how-it-works#accuracy">Measured accuracy</a>
+        <a href="/how-it-works#data">Data source</a>
+      </div>
+    </div>
+    <p class="foot-legal">Guide Check — FIN80031 AI for Finance and Accounting, Swinburne
+    University. Built on 1,249,163 NSW Valuer General property sales. Not legal, valuation or
+    financial advice: the output is a statistical observation about a price against comparable
+    sales, not an allegation of underquoting.</p>
+  </div>
+</footer>
+
+</body>
+</html>

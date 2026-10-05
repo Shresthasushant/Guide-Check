@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How it works — Guide Check</title>
+<meta name="description" content="The data, the model, the comparable-sales anchor, and the measured accuracy on 119,095 held-out NSW sales.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/app.css">
+<script>try{var t=localStorage.getItem('gc-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script src="/assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="head-inner">
+    <a class="brand" href="/">
+      <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.4 2.6v18.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+        <circle cx="11" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="18.6" cy="16" r="2.7" fill="currentColor" opacity=".45"/>
+        <circle cx="11" cy="8.4" r="2.7" fill="currentColor" opacity=".45"/>
+      </svg>
+      Guide&nbsp;Check
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/check">Analyse</a>
+      <a href="/how-to-use">How to use it</a>
+      <a href="/how-it-works">Methodology</a>
+      <a href="/limits">Limits</a>
+    </nav>
+    <div class="head-tools">
+      <a class="cta cta-head" href="/check">Check a guide</a>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch theme">
+        <svg data-icon="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 1v1.6M8 13.4V15M15 8h-1.6M2.6 8H1M12.9 3.1l-1.1 1.1M4.2 11.8l-1.1 1.1M12.9 12.9l-1.1-1.1M4.2 4.2 3.1 3.1"/></svg>
+        <svg data-icon="moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M13.5 9.6A5.9 5.9 0 0 1 6.4 2.5a5.9 5.9 0 1 0 7.1 7.1Z"/></svg>
+      </button>
+      <a class="cta cta-head" href="/check">Check a guide</a>
+      <button class="icon-btn nav-toggle" id="navBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="wrap">
+    <div class="hero">
+      <p class="kicker">Method</p>
+      <h1>How it works</h1>
+      <p class="lede">A LightGBM model trained on 1.25 million NSW sales, used not to predict a
+      price but to adjust comparable sales — then measured on 119,095 sales it never saw.</p>
+    </div>
+  </div>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>The chain, end to end</h2>
+      <p class="section-note">Six stages. Each one is a script you can re-run — open any step for the detail.</p>
+      <div class="method">
+        <details class="method-step" open>
+          <summary>
+            <span class="sn">01</span>
+            <span>
+              <span class="st">Ingest and clean</span>
+              <span class="sd">1.5M raw rows down to 1,249,163 usable residential sales.</span>
+            </span>
+            <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+          </summary>
+          <div class="method-body">
+          <p>1,508,054 rows of NSW Valuer General property sales. Keep residential only, drop
+          part-interest sales and nominal transfers, convert the 6.4% of areas recorded in
+          hectares, de-duplicate. <strong>1,249,163 sales</strong> survive.</p>
+          </div>
+        </details>
+        <details class="method-step">
+          <summary>
+            <span class="sn">02</span>
+            <span>
+              <span class="st">Freeze the split, before any modelling</span>
+              <span class="sd">Train, calibrate and test windows fixed and committed up front.</span>
+            </span>
+            <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+          </summary>
+          <div class="method-body">
+          <p>Train on contracts before 2025-01-01, calibrate to 2025-10-01, test on everything
+          after — <strong>119,095 sales</strong>, untouched until final scoring.</p>
+          <p>Cross-validation inside the training window is grouped by ABS statistical area, so a
+          property's neighbours never sit in both the fitting fold and the scoring fold.</p>
+          </div>
+        </details>
+        <details class="method-step">
+          <summary>
+            <span class="sn">03</span>
+            <span>
+              <span class="st">Engineer features — fitted on training data only</span>
+              <span class="sd">Four groups, with the target-derived index fitted on train alone.</span>
+            </span>
+            <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+          </summary>
+          <div class="method-body">
+          <p>Four groups: structural (land area, type), spatial (suburb, statistical area,
+          coordinates, distance to the CBD, zoning), temporal (year, month, days elapsed) and a
+          suburb price index.</p>
+          <p>The index is derived from the target, so it is computed on the training window alone
+          and then applied everywhere — otherwise test information leaks into training.</p>
+          </div>
+        </details>
+        <details class="method-step">
+          <summary>
+            <span class="sn">04</span>
+            <span>
+              <span class="st">Train the point model</span>
+              <span class="sd">LightGBM on log price, with XGBoost trained alongside as a check.</span>
+            </span>
+            <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+          </summary>
+          <div class="method-body">
+          <p>A market-drift correction is estimated on the calibration window only: the trees cannot
+          extrapolate a price trend past the end of their training data, so they price recent
+          sales at older levels until that level shift is removed.</p>
+          </div>
+        </details>
+        <details class="method-step">
+          <summary>
+            <span class="sn">05</span>
+            <span>
+              <span class="st">Calibrate the uncertainty</span>
+              <span class="sd">Conformalised quantile regression, cross-checked against MAPIE.</span>
+            </span>
+            <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+          </summary>
+          <div class="method-body">
+          <p>Quantile regression at the 10th and 90th percentiles, then conformalised: the raw band is
+          widened by a single constant learned from held-out calibration data, which gives a
+          distribution-free coverage guarantee. The result is checked against MAPIE's independent
+          implementation.</p>
+          </div>
+        </details>
+        <details class="method-step">
+          <summary>
+            <span class="sn">06</span>
+            <span>
+              <span class="st">Assess the guide against comparable sales</span>
+              <span class="sd">25 nearest sales, adjusted by the model's ratio, then the guide is placed.</span>
+            </span>
+            <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6.5 4 4 4-4"/></svg>
+          </summary>
+          <div class="method-body">
+          <p>A k-nearest-neighbour index returns the 25 most similar recent sales. Each is adjusted to
+          the subject property by the model's <em>ratio</em> between them, and the guide is placed
+          in that adjusted distribution.</p>
+          <p class="mono-note">adjusted = sale_price &times; [ model(subject) &divide; model(comparable) ]</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Why the comparables are the anchor</h2>
+      <p class="section-note">This is the design decision that matters most.</p>
+      <div class="prose">
+        <p>The obvious build is: predict a price, compare the guide to it. We built that, measured
+        it, and it was the wrong way round.</p>
+        <p>On 1,400 sampled test sales, the <strong>median of the comparable sales landed at 99.9%
+        of the eventual price</strong>, while the model on its own landed at 96.7%. The
+        comparables are the better-centred estimator. So they became the anchor, and the model was
+        demoted to the job it is actually good at — judging how much more or less the subject is
+        worth than each individual comparable:</p>
+        <p class="mono" style="background:var(--panel);padding:16px 18px;border-radius:3px;font-size:13.5px">
+          adjusted comp = comp sale price × [ model(subject) ÷ model(comp) ]
+        </p>
+        <p>Taking a ratio cancels much of the model's level error: if it reads 8% low on the
+        subject, it usually reads 8% low on a near-identical neighbour too. This is also how a
+        human valuer works — and it is the standard NSW law actually applies, since an agent must
+        justify a guide against comparable sales.</p>
+        <p>Adjustments are clipped at roughly half-to-double, because past that the two properties
+        are not really comparable and the adjustment is not trustworthy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="accuracy">
+    <div class="wrap">
+      <h2>Measured accuracy</h2>
+      <p class="section-note">Every figure below comes from scoring the frozen test set of
+      119,095 held-out sales. Nothing here is a training-set number.</p>
+
+      <h3 style="margin-bottom:6px">Point accuracy</h3>
+      <div class="table-scroll">
+        <table>
+          <caption>Mean absolute percentage error, lower is better.</caption>
+          <thead><tr><th>Arm</th><th class="n">MAPE %</th><th class="n">Median APE %</th><th class="n">MAE $</th></tr></thead>
+          <tbody>
+            <tr><td>LightGBM</td><td class="n">25.81</td><td class="n">16.76</td><td class="n">329,153</td></tr>
+            <tr><td>LightGBM + drift correction <span class="mono" style="color:var(--muted);font-size:11.5px">(what the app serves)</span></td><td class="n">25.90</td><td class="n">15.88</td><td class="n">321,746</td></tr>
+            <tr><td>XGBoost — tried, lost, not shipped</td><td class="n">25.89</td><td class="n">17.13</td><td class="n">330,923</td></tr>
+            <tr><td>Baseline: linear regression</td><td class="n">36.57</td><td class="n">22.24</td><td class="n">448,438</td></tr>
+            <tr><td>Baseline: suburb median $/m²</td><td class="n">41.33</td><td class="n">29.39</td><td class="n">498,922</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose"><strong>A 37.5% relative improvement over the suburb-median baseline.</strong>
+      The drift-corrected arm is marginally worse on mean error and clearly better on median error
+      and dollar error, which is the trade the app takes.</p>
+
+      <h3 style="margin:34px 0 6px">Interval calibration</h3>
+      <div class="table-scroll">
+        <table>
+          <caption>Nominal 80% interval. The honest test is whether it really contains the price 80% of the time.</caption>
+          <thead><tr><th>Method</th><th class="n">Empirical coverage %</th><th class="n">Gap (pp)</th><th class="n">Mean width, % of price</th></tr></thead>
+          <tbody>
+            <tr><td>Raw quantile regression</td><td class="n">72.25</td><td class="n">−7.76</td><td class="n">72.1</td></tr>
+            <tr><td>Conformalized quantile regression</td><td class="n">75.74</td><td class="n">−4.26</td><td class="n">76.6</td></tr>
+            <tr><td>Split conformal (MAPIE, independent check)</td><td class="n">77.61</td><td class="n">−2.39</td><td class="n">70.7</td></tr>
+            <tr><td><strong>CQR + drift correction (shipped)</strong></td><td class="n"><strong>77.64</strong></td><td class="n"><strong>−2.37</strong></td><td class="n">78.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout note">
+        <p><strong>The app displays 77.6%, not 80%.</strong> The band is slightly narrower than it
+        claims to be. Quoting the nominal number would be the easy thing and the dishonest thing,
+        so the measured number is what appears on every result.</p>
+      </div>
+
+      <h3 style="margin:34px 0 6px">Which features actually carry the model</h3>
+      <div class="table-scroll">
+        <table>
+          <caption>Retrained with one feature group removed, on the identical frozen split. A bigger number means the group was carrying more real signal.</caption>
+          <thead><tr><th>Removed</th><th class="n">MAPE %</th><th class="n">Damage (pp)</th></tr></thead>
+          <tbody>
+            <tr><td>nothing</td><td class="n">25.81</td><td class="n">—</td></tr>
+            <tr><td>suburb price index</td><td class="n">25.83</td><td class="n">+0.02</td></tr>
+            <tr><td>spatial</td><td class="n">26.82</td><td class="n">+1.01</td></tr>
+            <tr><td>structural</td><td class="n">28.52</td><td class="n">+2.71</td></tr>
+            <tr><td><strong>temporal</strong></td><td class="n">30.58</td><td class="n"><strong>+4.77</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose">Time carries the most signal, which is expected across years of rising
+      prices. The suburb price index earns almost nothing — worth knowing, since it is the one
+      feature that required the fit-on-training-data-only discipline to avoid leakage.</p>
+
+      <h3 style="margin:34px 0 6px">The harness was proved before the model existed</h3>
+      <p class="prose">A predictions file was fabricated with a deliberate <strong>+12% bias</strong>
+      and a band engineered to cover <strong>70%</strong> against a nominal 80%. The evaluation
+      harness had to recover those numbers; if it had reported 80% coverage there, it would have
+      lied about the real model too. It recovered <strong>+11.85% median bias</strong> and
+      <strong>exactly 70.0% coverage</strong>. The probe file is deleted before the real results
+      are scored so it cannot pollute the table.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>What failed, and what changed</h2>
+      <p class="section-note">Both changes came from evidence, not from chasing an accuracy
+      metric.</p>
+      <div class="cols cols-2">
+        <div class="card">
+          <p class="eyebrow">Failure 1</p>
+          <h3>The binary flag</h3>
+          <p>The first build flagged a guide when it fell below the model's lower bound. Measured
+          on the test set, it caught a real 20% underquote <strong>1 time in 4</strong> while
+          wrongly flagging <strong>1 honest guide in 15</strong>. Narrowing the population barely
+          moved it.</p>
+          <p>The target was wrong, not the accuracy. “Will this sell above the guide?” is not the
+          question — properties routinely sell above guide in a hot auction with nobody
+          underquoting. The flag was deleted and the output rebuilt around comparable sales.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Failure 2</p>
+          <h3>Percentile bands</h3>
+          <p>The replacement banded on the percentile of the adjusted comparables — “strong” below
+          the 5th, “notable” below the 15th. Then we measured the spread of those comparables over
+          400 properties: the middle half spans about <strong>28% of the median</strong>.</p>
+          <p>So a real 15% underquote landed at the 24th percentile and was reported back as
+          merely “at the low end”. The bands only fired on discounts nobody needed a model to
+          notice. They are now scaled by the segment's <strong>measured error</strong> instead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="data">
+    <div class="wrap">
+      <h2>The data</h2>
+      <p class="section-note">NSW Valuer General Property Sales Information, the public record of
+      every property sale in the state.</p>
+      <div class="cols cols-3">
+        <div class="card">
+          <span class="num">1.25M</span>
+          <h3>Sales after cleaning</h3>
+          <p>From 1,508,054 raw rows. Effectively 2019 onward — only about 33,000 rows predate
+          2019.</p>
+        </div>
+        <div class="card">
+          <span class="num">6.4%</span>
+          <h3>Areas in hectares</h3>
+          <p>The area column is metres <em>or</em> hectares depending on a second column. Treating
+          them alike is a 10,000× error that silently wrecks every area feature.</p>
+        </div>
+        <div class="card">
+          <span class="num">687</span>
+          <h3>Rows the “non-market” flag catches</h3>
+          <p>Out of 1.5 million — yet there are 5,198 sales under $10,000. Nominal transfers are
+          cut relative to the suburb × property-type median instead.</p>
+        </div>
+      </div>
+      <div class="prose" style="margin-top:26px">
+        <h3>What the data does not contain</h3>
+        <ul class="ticks">
+          <li><strong>No bedrooms or bathrooms.</strong> Not a single column. This is the largest
+          missing feature in the whole project.</li>
+          <li><strong>No latitude or longitude.</strong> Only address text. Geocoding 1.2 million
+          addresses through a free service would take over two weeks and breach its usage policy,
+          so every sale is resolved to its suburb centroid — which is why the estimate is
+          suburb-level rather than street-level.</li>
+          <li><strong>No condition, aspect, renovation or view.</strong> Two identical-on-paper
+          properties can differ by a great deal in reality.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Reproduce it</h2>
+      <p class="section-note">Everything in the tables above regenerates from the submitted
+      folder.</p>
+      <div class="prose">
+        <p class="mono" style="background:var(--panel);padding:18px 20px;border-radius:3px;font-size:13px;line-height:2">
+          python selftest.py<span style="color:var(--muted)">&nbsp; &nbsp;# the demo cases still band correctly (~1 min)</span><br>
+          python src/harness.py<span style="color:var(--muted)">&nbsp; &nbsp;# rescore the frozen test set (~1 min)</span><br>
+          python src/run_all.py<span style="color:var(--muted)">&nbsp; &nbsp;# rebuild everything from raw data (15–25 min)</span>
+        </p>
+        <p><code>run_all.py</code> refuses to overwrite the frozen split, so re-running cannot
+        quietly change the test set.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn" href="/check">Check a guide</a>
+        <a class="btn ghost" href="/limits">What this cannot tell you →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h4>The tool</h4>
+        <a href="/check">Analyse a guide</a>
+        <a href="/how-to-use">How to use it</a>
+      </div>
+      <div class="foot-col">
+        <h4>Method</h4>
+        <a href="/how-it-works">Methodology</a>
+        <a href="/limits">Limits and caveats</a>
+      </div>
+      <div class="foot-col">
+        <h4>Project</h4>
+        <a href="/how-it-works#accuracy">Measured accuracy</a>
+        <a href="/how-it-works#data">Data source</a>
+      </div>
+    </div>
+    <p class="foot-legal">Guide Check — FIN80031 AI for Finance and Accounting, Swinburne
+    University. Built on 1,249,163 NSW Valuer General property sales. Not legal, valuation or
+    financial advice: the output is a statistical observation about a price against comparable
+    sales, not an allegation of underquoting.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+case_id,suburb,postcode,property_type,land_area_m2,guide,expected_severity,what_it_shows
+D1-strong,PARRAMATTA,2150,house,450,950000,strong,"Guide 2.6 typical errors below the comparable evidence - the clearest case the tool is built to catch"
+D2-consistent,PARRAMATTA,2150,house,450,1450000,none,"Same property, a defensible guide. The tool must stay quiet here"
+D3-mild,BONDI,2026,unit,,1200000,mild,"Unit with no land area supplied - the fallback path, and a borderline gap"
+D4-notable,MUDGEE,2850,house,800,600000,notable,"Regional house. Tests the regional error segment, not the metro one"
+D5-notable,DUBBO,2830,house,700,450000,notable,"Second regional case, thinner sales pool"
